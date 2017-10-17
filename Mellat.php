@@ -104,11 +104,11 @@ class Mellat {
         }
     }
 
-    protected function verify_payment($params){
+    protected function verify_payment($SaleOrderId, $SaleReferenceId){
         $client                     = new nusoap_client( $this->url_wsdl,'wsdl') ;
-        $orderId                    = $params["SaleOrderId"];
-        $verifySaleOrderId          = $params["SaleOrderId"];
-        $verifySaleReferenceId      = $params['SaleReferenceId'];
+        $orderId                    = $SaleOrderId;
+        $verifySaleOrderId          = $SaleOrderId;
+        $verifySaleReferenceId      = $SaleReferenceId;
         $err = $client->getError();
         if ($err) {
             return false;
