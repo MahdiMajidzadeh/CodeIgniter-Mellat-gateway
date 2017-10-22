@@ -25,14 +25,19 @@ $this->mellat->set_options(
     );
 ```
 
-For sending user to gateway:
+For send data to bank:
 ```
-$this->mellat->send();
+$refid = $this->mellat->call_bank();
 ```
 
-For verify user payment:
+send user to bank:
 ```
-$this->mellat->verify_payment($SaleOrderId, $SaleReferenceId)
+$this->mellat->redirect_to_bank($refid);
+```
+
+verify user payment:
+```
+$this->mellat->verify_payment($order, $refid)
 ```
 
 

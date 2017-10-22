@@ -46,7 +46,7 @@ class Mellat {
             $this->callback = $callback;
     }
 
-    public function send()
+    public function call_bank()
     {
         $client             = new nusoap_client($this->url_wsdl, 'wsdl');
         $terminalId         = $this->terminal;
@@ -77,7 +77,7 @@ class Mellat {
             'callBackUrl'       => $callBackUrl,
             'payerId'           => $payerId
         );
-        $result = $client->call('bpPayRequest', $parameters, $this->$url_pay);
+        $result = $client->call('bpPayRequest', $parameters, $this->url_pay);
 
         if ($client->fault) {
             return false;
@@ -95,7 +95,7 @@ class Mellat {
                 $res = explode (',',$resultStr);
                 $ResCode = $res[0]; 
                 if ($ResCode == "0") {
-                    $this->postRefId($res[1]);
+                    return $res[1];
                 }
                 else {
                     return false;
@@ -104,7 +104,7 @@ class Mellat {
         }
     }
 
-    protected function verify_payment($SaleOrderId, $SaleReferenceId){
+    public function verify_payment($SaleOrderId, $SaleReferenceId){
         $client                     = new nusoap_client( $this->url_wsdl,'wsdl') ;
         $orderId                    = $SaleOrderId;
         $verifySaleOrderId          = $SaleOrderId;
@@ -138,8 +138,9 @@ class Mellat {
         return false;
     }
 
-    protected function postRefId($refIdValue){
-        echo '<script language="javascript" type="text/javascript"> 
+    public function redirect_to_bank($refIdValue)
+    {
+        echo '<html><head></head><body></body><script language="javascript" type="text/javascript"> 
                 function postRefId (refIdValue) {
                 var form = document.createElement("form");
                 form.setAttribute("method", "POST");
@@ -154,7 +155,7 @@ class Mellat {
                 document.body.removeChild(form);
             }
             postRefId("' . $refIdValue . '");
-            </script>';
+            </script></html>';
     }
 
     protected function error($number){
@@ -177,5 +178,4 @@ class Mellat {
         }
         return false;
     }
-
 }
