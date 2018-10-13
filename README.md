@@ -1,6 +1,8 @@
 # CodeIgniter-Mellat-gateway
 [![StyleCI](https://styleci.io/repos/107120117/shield?branch=master)](https://styleci.io/repos/107120117)
 
+## This library not maintained eny more
+
 Codeigniter library for Iranian bank, Mellat.
 
 ## how to install
